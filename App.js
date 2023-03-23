@@ -1,20 +1,21 @@
 import React, { useState, useCallback } from "react";
-import {
-  StyleSheet,
-  View,
-  ImageBackground,
-  Platform,
-  KeyboardAvoidingView,
-} from "react-native";
-import RegistrationScreen from "./Screens/RegistrationScreen";
-import LoginScreen from "./Screens/LoginScreen";
+import { StyleSheet, View } from "react-native";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { NavigationContainer } from "@react-navigation/native";
+import { useRout } from "./reuter";
+import { useNavigation } from "@react-navigation/native";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  // const navigation = useNavigation();
+  // console.log("APP: ", value);
+
+  // const routing = useRout(Math.random() > 0.5);
+  const routing = useRout(1);
+
   const [fontsLoaded] = useFonts({
     "Inter-Medium": require("./assets/fonts/Inter-Medium.ttf"),
     "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
@@ -22,7 +23,7 @@ export default function App() {
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
   });
 
-  const [isRegistrate, setIsRegistrate] = useState(true);
+  // const [isRegistrate, setIsRegistrate] = useState(true);
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -33,27 +34,13 @@ export default function App() {
     return null;
   }
 
-  const whatToShow = (value) => {
-    setIsRegistrate(value);
-  };
+  // const whatToShow = (value) => {
+  //   setIsRegistrate(value);
+  // };
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <ImageBackground
-        style={styles.image}
-        source={require("./assets/bg1.png")}
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-          style={styles.container}
-        >
-          {isRegistrate ? (
-            <RegistrationScreen whatToShow={whatToShow} />
-          ) : (
-            <LoginScreen whatToShow={whatToShow} />
-          )}
-        </KeyboardAvoidingView>
-      </ImageBackground>
+      <NavigationContainer>{routing}</NavigationContainer>
     </View>
   );
 }
