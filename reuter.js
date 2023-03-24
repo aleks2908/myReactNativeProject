@@ -13,6 +13,7 @@ import { ProfileScreen } from "./Screens/mainScreen/ProfileScreen";
 // icons import
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+// import RegistrationScreen from "./Screens/auth/RegistrationScreen";
 
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
@@ -27,17 +28,28 @@ const MainTab = createBottomTabNavigator();
 //   return ttt;
 // };
 
+// console.log("whatToShowttttttttttttttt: ", whatToShow);
+
 export const useRout = (isAuth) => {
-  const navigation = useNavigation();
+  console.log("isAuth: ", isAuth);
+  // export const UseRout = ({ isAuth, whatToShow }) => {
+  // console.log("whatToShow: ", whatToShow);
+  // console.log("isAuth: ", isAuth);
+  // const navigation = useNavigation();
+  // whatToShow(1);
   // console.log(navigation);
+  // RegistrationScreen()
 
   if (!isAuth) {
     return (
       <AuthStack.Navigator initialRouteName="Login">
         <AuthStack.Screen
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+          }}
           name="Registration"
           component={Register}
+          // whatToShow={whatToShow}
         />
         <AuthStack.Screen
           options={{ headerShown: false }}
@@ -68,7 +80,7 @@ export const useRout = (isAuth) => {
           //   borderBottomWidth: 1,
           //   borderBottomColor: "red",
 
-          //   headerShown: false,
+          headerShown: false,
           headerStyle: {
             backgroundColor: "#FFFFFF",
             borderBottomWidth: 1,
@@ -104,7 +116,7 @@ export const useRout = (isAuth) => {
       <MainTab.Screen
         options={{
           headerTitleAlign: "center",
-          // headerShown: false,
+          headerShown: false,
           headerStyle: {
             backgroundColor: "#FFFFFF",
             borderBottomWidth: 1,
@@ -119,7 +131,7 @@ export const useRout = (isAuth) => {
           },
           headerLeft: () => (
             <MaterialCommunityIcons
-              onPress={() => navigation.navigate("Публікації")}
+              // onPress={() => navigation.navigate("Публікації")}
               name="arrow-left"
               size={24}
               color="#212121"

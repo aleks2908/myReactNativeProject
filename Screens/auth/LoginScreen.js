@@ -12,6 +12,8 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 
+// "expo": "~48.0.6",
+
 const initialstate = {
   email: "",
   password: "",
@@ -47,74 +49,74 @@ export default Login = ({ navigation }) => {
   };
 
   return (
-    <>
-      <ImageBackground
-        style={styles.image}
-        source={require("../../assets/bg1.png")}
+    // <>
+    <ImageBackground
+      style={styles.image}
+      source={require("../../assets/bg1.png")}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={styles.container}
       >
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-          style={styles.container}
-        >
-          <TouchableWithoutFeedback onPress={keyboardHide}>
-            <View
-              style={{
-                ...styles.formWrapper,
-                marginBottom: isKeyboardShown ? -245 : 0,
-              }}
-            >
-              <View style={styles.form}>
-                <Text style={styles.formTitle}>Увійти</Text>
+        <TouchableWithoutFeedback onPress={keyboardHide}>
+          <View
+            style={{
+              ...styles.formWrapper,
+              marginBottom: isKeyboardShown ? -245 : 0,
+            }}
+          >
+            <View style={styles.form}>
+              <Text style={styles.formTitle}>Увійти</Text>
 
-                <TextInput
-                  style={styles.input}
-                  placeholder={"Адреса електронної пошти"}
-                  placeholderTextColor={"#BDBDBD"}
-                  value={state.email}
-                  onFocus={() => {
-                    setIsKeyboardShown(true);
-                  }}
-                  onChangeText={(value) =>
-                    setState((prevstate) => ({ ...prevstate, email: value }))
-                  }
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder={"Пароль"}
-                  placeholderTextColor={"#BDBDBD"}
-                  value={state.password}
-                  secureTextEntry={true}
-                  onFocus={() => {
-                    setIsKeyboardShown(true);
-                  }}
-                  onChangeText={(value) =>
-                    setState((prevstate) => ({ ...prevstate, password: value }))
-                  }
-                />
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={styles.formButton}
-                  onPress={onsubmit}
-                >
-                  <Text style={styles.buttonTitle}>Увійти</Text>
-                </TouchableOpacity>
+              <TextInput
+                style={styles.input}
+                placeholder={"Адреса електронної пошти"}
+                placeholderTextColor={"#BDBDBD"}
+                value={state.email}
+                onFocus={() => {
+                  setIsKeyboardShown(true);
+                }}
+                onChangeText={(value) =>
+                  setState((prevstate) => ({ ...prevstate, email: value }))
+                }
+              />
+              <TextInput
+                style={styles.input}
+                placeholder={"Пароль"}
+                placeholderTextColor={"#BDBDBD"}
+                value={state.password}
+                secureTextEntry={true}
+                onFocus={() => {
+                  setIsKeyboardShown(true);
+                }}
+                onChangeText={(value) =>
+                  setState((prevstate) => ({ ...prevstate, password: value }))
+                }
+              />
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.formButton}
+                onPress={onsubmit}
+              >
+                <Text style={styles.buttonTitle}>Увійти</Text>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={() => {
-                    navigation.navigate("Registration");
-                  }}
-                >
-                  <Text style={styles.alreadyHaveAccount}>
-                    Немає акаунту? Зареєструватись
-                  </Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => {
+                  navigation.navigate("Registration");
+                }}
+              >
+                <Text style={styles.alreadyHaveAccount}>
+                  Немає акаунту? Зареєструватись
+                </Text>
+              </TouchableOpacity>
             </View>
-          </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-      </ImageBackground>
-    </>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </ImageBackground>
+    // </>
   );
 };
 
@@ -137,7 +139,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     paddingHorizontal: 16,
-    // marginHorizontal: 16,
   },
   formTitle: {
     fontSize: 30,

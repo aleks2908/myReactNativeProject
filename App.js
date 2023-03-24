@@ -5,11 +5,12 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
 import { useRout } from "./reuter";
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  // console.log(props);
   // const navigation = useNavigation();
   // console.log("APP: ", value);
 
@@ -35,12 +36,16 @@ export default function App() {
   }
 
   // const whatToShow = (value) => {
-  //   setIsRegistrate(value);
+  //   console.log("value: ", value);
+  //   // setIsRegistrate(value);
   // };
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>{routing}</NavigationContainer>
+      <NavigationContainer>
+        {routing}
+        {/* <UseRout whatToShow={whatToShow} isAuth={0} /> */}
+      </NavigationContainer>
     </View>
   );
 }

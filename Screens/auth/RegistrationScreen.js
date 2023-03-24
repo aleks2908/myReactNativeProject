@@ -15,6 +15,8 @@ import {
 // import App from "../../App";
 // import { useRout } from "../../reuter";
 // import { isSignedIn, useRout } from "../../reuter";
+// import { AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 const initialstate = {
   login: "",
@@ -23,6 +25,7 @@ const initialstate = {
 };
 
 export default Register = ({ navigation }) => {
+  // console.log("whatToShow7777777777: ", whatToShow);
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [state, setState] = useState(initialstate);
 
@@ -46,6 +49,9 @@ export default Register = ({ navigation }) => {
       keyboardHide();
       console.log(state);
       setState(initialstate);
+
+      // whatToShow(123);
+      // console.log("whatToShow: ", whatToShow);
 
       // isSignedIn(1);
       // console.log("isSignedIn: ", isSignedIn);
@@ -78,7 +84,19 @@ export default Register = ({ navigation }) => {
               }}
             >
               <View style={styles.form}>
-                <View style={styles.backPhoto}></View>
+                <View style={styles.backPhoto}>
+                  {/* <AntDesign name="pluscircleo" size={24} color="black" /> */}
+                  {/* <AntDesign name="pluscircle" size={24} color="black" /> */}
+                  <AntDesign
+                    style={styles.plusSign}
+                    name="pluscircleo"
+                    size={25}
+                    color="#FF6C00"
+                    onPress={() => {
+                      alert("АГА!!!!!");
+                    }}
+                  />
+                </View>
                 <Text style={styles.formTitle}>Реєстрація</Text>
                 <TextInput
                   style={styles.input}
@@ -164,6 +182,13 @@ const styles = StyleSheet.create({
     height: 120,
     backgroundColor: "#F6F6F6",
     borderRadius: 16,
+  },
+  plusSign: {
+    top: 81,
+    left: 107,
+    width: 25,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
   },
   formWrapper: {
     flex: 1,

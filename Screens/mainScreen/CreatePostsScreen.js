@@ -56,16 +56,16 @@ export const CreatePostsScreen = ({ navigation }) => {
   return (
     // <>
     <>
-      {/* <View style={styles.header}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Створити публікацію</Text>
         <MaterialCommunityIcons
+          style={styles.createPostsIcon}
           onPress={() => navigation.navigate("Публікації")}
           name="arrow-left"
           size={24}
           color="#212121"
-          marginLeft={16}
         />
-        <Text style={styles.headerTitle}>Створити публікацію</Text>
-      </View> */}
+      </View>
       <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={styles.container}
@@ -144,20 +144,26 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   header: {
-    flexDirection: "row",
+    // flexDirection: "row",
     backgroundColor: "#FFFFFF",
     borderBottomWidth: 1,
     borderBottomColor: "#cccdcd",
     height: 88,
-    alignItems: "flex-end",
-    justifyContent: "flex-start",
-    paddingBottom: 11,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    // paddingBottom: 10,
   },
   headerTitle: {
     fontFamily: "Roboto-Medium",
-    marginLeft: 63,
+    // marginRight: 100,
+    marginBottom: 11,
     // fontWeight: 500,
     fontSize: 17,
+  },
+  createPostsIcon: {
+    position: "absolute",
+    bottom: 10,
+    left: 16,
   },
   // formWrapper: {
   //   // flex: 1,
