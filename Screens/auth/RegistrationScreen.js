@@ -1,3 +1,5 @@
+<script src="http://localhost:8097"></script>;
+
 // import { useRoute } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import {
@@ -28,6 +30,7 @@ export default Register = ({ navigation }) => {
   // console.log("whatToShow7777777777: ", whatToShow);
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [state, setState] = useState(initialstate);
+  const [showPassword, setShowPassword] = useState(true);
 
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener(
@@ -65,69 +68,67 @@ export default Register = ({ navigation }) => {
   };
 
   return (
-    <>
-      {/* //{" "} */}
-      {/* <View style={styles.container} onLayout={onLayoutRootView}> */}
-      <ImageBackground
-        style={styles.image}
-        source={require("../../assets/bg1.png")}
+    <ImageBackground
+      style={styles.image}
+      source={require("../../assets/bg1.png")}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={styles.container}
       >
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-          style={styles.container}
-        >
-          <TouchableWithoutFeedback onPress={keyboardHide}>
-            <View
-              style={{
-                ...styles.formWrapper,
-                marginBottom: isKeyboardShown ? -175 : 0,
-              }}
-            >
-              <View style={styles.form}>
-                <View style={styles.backPhoto}>
-                  {/* <AntDesign name="pluscircleo" size={24} color="black" /> */}
-                  {/* <AntDesign name="pluscircle" size={24} color="black" /> */}
-                  <AntDesign
-                    style={styles.plusSign}
-                    name="pluscircleo"
-                    size={25}
-                    color="#FF6C00"
-                    onPress={() => {
-                      alert("АГА!!!!!");
-                    }}
-                  />
-                </View>
-                <Text style={styles.formTitle}>Реєстрація</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder={"Логін"}
-                  placeholderTextColor={"#BDBDBD"}
-                  value={state.login}
-                  onFocus={() => {
-                    setIsKeyboardShown(true);
+        <TouchableWithoutFeedback onPress={keyboardHide}>
+          <View
+            style={{
+              ...styles.formWrapper,
+              marginBottom: isKeyboardShown ? -175 : 0,
+            }}
+          >
+            <View style={styles.form}>
+              <View style={styles.backPhoto}>
+                <AntDesign
+                  style={styles.plusSign}
+                  name="pluscircleo"
+                  size={25}
+                  color="#FF6C00"
+                  onPress={() => {
+                    alert("АГА!!!!!");
                   }}
-                  onChangeText={(value) =>
-                    setState((prevstate) => ({ ...prevstate, login: value }))
-                  }
                 />
-                <TextInput
-                  style={styles.input}
-                  placeholder={"Адреса електронної пошти"}
-                  placeholderTextColor={"#BDBDBD"}
-                  value={state.email}
-                  onFocus={() => {
-                    setIsKeyboardShown(true);
-                  }}
-                  onChangeText={(value) =>
-                    setState((prevstate) => ({ ...prevstate, email: value }))
-                  }
-                />
+              </View>
+              <Text style={styles.formTitle}>Реєстрація</Text>
+              <TextInput
+                style={styles.input}
+                placeholder={"Логін"}
+                placeholderTextColor={"#BDBDBD"}
+                value={state.login}
+                onFocus={() => {
+                  setIsKeyboardShown(true);
+                }}
+                onChangeText={(value) =>
+                  setState((prevstate) => ({ ...prevstate, login: value }))
+                }
+              />
+              <TextInput
+                style={styles.input}
+                placeholder={"Адреса електронної пошти"}
+                placeholderTextColor={"#BDBDBD"}
+                value={state.email}
+                onFocus={() => {
+                  setIsKeyboardShown(true);
+                }}
+                onChangeText={(value) =>
+                  setState((prevstate) => ({ ...prevstate, email: value }))
+                }
+              />
+              <View>
                 <TextInput
                   style={styles.input}
                   placeholder={"Пароль"}
                   placeholderTextColor={"#BDBDBD"}
                   value={state.password}
-                  secureTextEntry={true}
+                  // {const ttt = () => {secureTextEntry={true}}}
+                  secureTextEntry={showPassword}
+                  // secureTextEntry={true}
                   onFocus={() => {
                     setIsKeyboardShown(true);
                   }}
@@ -139,28 +140,41 @@ export default Register = ({ navigation }) => {
                   }
                 />
                 <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={styles.formButton}
-                  onPress={onsubmit}
-                >
-                  <Text style={styles.buttonTitle}>Зареєструватись</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+                  style={styles.showPassWhapper}
                   activeOpacity={0.7}
-                  onPress={() => {
-                    navigation.navigate("Login");
-                  }}
+                  onPress={() => setShowPassword((prevState) => !prevState)}
+                  // onPress={() => {
+                  //   navigation.navigate("Registration");
+                  // }}
                 >
-                  <Text style={styles.alreadyHaveAccount}>
-                    Вже є акаунт? Увійти
+                  <Text style={styles.showPassText}>
+                    {showPassword ? "Показати" : "Сховати"}
                   </Text>
                 </TouchableOpacity>
               </View>
+
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.formButton}
+                onPress={onsubmit}
+              >
+                <Text style={styles.buttonTitle}>Зареєструватись</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => {
+                  navigation.navigate("Login");
+                }}
+              >
+                <Text style={styles.alreadyHaveAccount}>
+                  Вже є акаунт? Увійти
+                </Text>
+              </TouchableOpacity>
             </View>
-          </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-      </ImageBackground>
-    </>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </ImageBackground>
   );
 };
 
@@ -224,6 +238,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     fontFamily: "Roboto-Regular",
+  },
+  showPassWhapper: {
+    position: "absolute",
+    right: 16,
+    height: 50,
+    verticalAlign: "middle",
+    textAlign: "center",
+    // backgroundColor: "red",
+    justifyContent: "center",
+    // alignItems: "center",
+  },
+  showPassText: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#1B4371",
   },
   formButton: {
     justifyContent: "center",

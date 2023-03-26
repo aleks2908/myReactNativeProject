@@ -74,7 +74,7 @@ export const CreatePostsScreen = ({ navigation }) => {
           <View
             style={{
               ...styles.formWrapper,
-              marginBottom: isKeyboardShown ? 50 : 118, // 135
+              marginBottom: isKeyboardShown ? 0 : 118, // 135
             }}
           >
             <View style={styles.photoBack}>
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // marginHorizontal: 16,
     height: 51,
-    backgroundColor: "#FF6C00",
+    backgroundColor: "#F6F6F6", //"#FF6C00"
     borderRadius: 100,
     marginTop: 16,
     // marginBottom: 16,
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: 16,
     lineHeight: 19,
-    color: "#FFFFFF",
+    color: "#BDBDBD", // FFFFFF
     fontFamily: "Roboto-Regular",
   },
 });

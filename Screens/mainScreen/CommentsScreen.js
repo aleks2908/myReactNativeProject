@@ -1,17 +1,19 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 export const CommentsScreen = ({ navigation }) => {
   return (
     <>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Коментарі</Text>
-        <MaterialIcons
-          style={styles.headerIcon}
+        <MaterialCommunityIcons
+          style={styles.createPostsIcon}
           onPress={() => navigation.navigate("Публікації")}
-          name="logout"
+          name="arrow-left"
           size={24}
-          color="#BDBDBD"
+          color="#212121"
         />
       </View>
       <View style={styles.container}>{/* <Text>PostsScreen</Text> */}</View>
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
     // fontWeight: 500,
     fontSize: 17,
   },
-  headerIcon: {
+  createPostsIcon: {
     position: "absolute",
     bottom: 10,
     left: 16,

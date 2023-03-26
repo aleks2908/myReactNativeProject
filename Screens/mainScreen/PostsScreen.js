@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Button } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";
 
 export const PostsScreen = ({ navigation }) => {
   return (
@@ -16,7 +17,15 @@ export const PostsScreen = ({ navigation }) => {
           color="#BDBDBD"
         />
       </View>
-      <View style={styles.container}>{/* <Text>PostsScreen</Text> */}</View>
+
+      <Text onPress={() => navigation.navigate("CommentsScreen")}>
+        <EvilIcons name="comment" size={30} color="black" />
+        Comment
+      </Text>
+      <Text onPress={() => navigation.navigate("MapScreen")}>
+        <EvilIcons name="location" size={30} color="black" />
+        Map
+      </Text>
     </>
   );
 };
@@ -28,7 +37,7 @@ const styles = StyleSheet.create({
     // height: 530,
     paddingHorizontal: 16,
     // justifyContent: "flex-start",
-    backgroundColor: "#FFFFFF",
+    // backgroundColor: "red",
   },
   header: {
     // flexDirection: "row",

@@ -1,3 +1,5 @@
+<script src="http://localhost:8097"></script>;
+
 import React, { useState, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 
@@ -46,6 +48,7 @@ export default function App() {
         {routing}
         {/* <UseRout whatToShow={whatToShow} isAuth={0} /> */}
       </NavigationContainer>
+      {/* <script src="http://localhost:8097"></script> */}
     </View>
   );
 }

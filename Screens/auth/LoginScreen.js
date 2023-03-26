@@ -22,6 +22,7 @@ const initialstate = {
 export default Login = ({ navigation }) => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [state, setState] = useState(initialstate);
+  const [showPassword, setShowPassword] = useState(true);
 
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener(
@@ -49,7 +50,6 @@ export default Login = ({ navigation }) => {
   };
 
   return (
-    // <>
     <ImageBackground
       style={styles.image}
       source={require("../../assets/bg1.png")}
@@ -67,7 +67,6 @@ export default Login = ({ navigation }) => {
           >
             <View style={styles.form}>
               <Text style={styles.formTitle}>Увійти</Text>
-
               <TextInput
                 style={styles.input}
                 placeholder={"Адреса електронної пошти"}
@@ -80,19 +79,33 @@ export default Login = ({ navigation }) => {
                   setState((prevstate) => ({ ...prevstate, email: value }))
                 }
               />
-              <TextInput
-                style={styles.input}
-                placeholder={"Пароль"}
-                placeholderTextColor={"#BDBDBD"}
-                value={state.password}
-                secureTextEntry={true}
-                onFocus={() => {
-                  setIsKeyboardShown(true);
-                }}
-                onChangeText={(value) =>
-                  setState((prevstate) => ({ ...prevstate, password: value }))
-                }
-              />
+              <View>
+                <TextInput
+                  style={styles.input}
+                  placeholder={"Пароль"}
+                  placeholderTextColor={"#BDBDBD"}
+                  value={state.password}
+                  // {const ttt = () => {secureTextEntry={true}}}
+                  secureTextEntry={showPassword}
+                  // secureTextEntry={true}
+                  onFocus={() => {
+                    setIsKeyboardShown(true);
+                  }}
+                  onChangeText={(value) =>
+                    setState((prevstate) => ({ ...prevstate, password: value }))
+                  }
+                />
+                <TouchableOpacity
+                  style={styles.showPassWhapper}
+                  activeOpacity={0.7}
+                  onPress={() => setShowPassword((prevState) => !prevState)}
+                >
+                  <Text style={styles.showPassText}>
+                    {showPassword ? "Показати" : "Сховати"}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.formButton}
@@ -132,6 +145,7 @@ const styles = StyleSheet.create({
   formWrapper: {
     flex: 1,
     justifyContent: "flex-end",
+    // alignItems: "center",
   },
   form: {
     height: 489,
@@ -163,6 +177,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     fontFamily: "Roboto-Regular",
+  },
+  showPassWhapper: {
+    position: "absolute",
+    right: 16,
+    height: 50,
+    verticalAlign: "middle",
+    textAlign: "center",
+    // backgroundColor: "red",
+    justifyContent: "center",
+    // alignItems: "center",
+  },
+  showPassText: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#1B4371",
   },
   formButton: {
     justifyContent: "center",
