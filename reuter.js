@@ -45,6 +45,7 @@ function Home() {
         tabBarStyle: [
           {
             display: "flex",
+            // display: "none",
           },
           null,
         ],
@@ -54,7 +55,7 @@ function Home() {
         options={{
           //   headerTitle: "RRRRRRRRRRR",
           headerTitleAlign: "center",
-          tabBarActiveTintColor: "#FF6C00",
+          tabBarActiveTintColor: "#8e8e8f",
           // tabBarActiveBackgroundColor: "yellow",
           // tabBarInactiveBackgroundColor: "green",
           //   backgroundColor: "#FFFFFF",
@@ -108,10 +109,17 @@ function Home() {
       ></MainTab.Screen>
 
       <MainTab.Screen
-        screenOptions={{
-          tabBarStyle: { display: "none" },
-        }}
+        // tabBarStyle={ display: "none" },
+        // screenOptions={{
+        //   tabBarStyle: { display: "none" },
+        // }}
+        // screenOptions={{
+        //   tabBarStyle: { display: "none" },
+        // }}
         options={{
+          tabBarStyle: { display: "none" },
+          // showBarTab: "false",
+          // tapBarShow: "false",
           tabBarHideOnKeyboard: "true",
           headerTitleAlign: "center",
           tabBarActiveTintColor: "#FF6C00",
@@ -168,7 +176,8 @@ function Home() {
           //   headerTitle: "RRRRRRRRRRR",
           //   headerTitleAlign: "center",
 
-          tabBarActiveTintColor: "#FF6C00",
+          // tabBarActiveTintColor: "#FF6C00",
+          tabBarActiveTintColor: "#8e8e8f",
 
           headerShown: false,
           //   headerStyle: {
@@ -264,18 +273,18 @@ export const useRout = (isAuth) => {
 const r = true;
 
 const styles = StyleSheet.create({
-  deleteIcon: {
-    width: 70,
-    height: 40,
-    textAlign: "center",
-    verticalAlign: "middle",
-    borderRadius: 20,
-    color: "#212121",
-    // paddingHorizontal: 20,
-    // paddingVertical: 5,
-    backgroundColor: "#F6F6F6",
-    // borderRadius: 15,
-  },
+  // deleteIcon: {
+  //   width: 70,
+  //   height: 40,
+  //   textAlign: "center",
+  //   verticalAlign: "middle",
+  //   borderRadius: 20,
+  //   color: "#212121",
+  //   // paddingHorizontal: 20,
+  //   // paddingVertical: 5,
+  //   backgroundColor: "#F6F6F6",
+  //   // borderRadius: 15,
+  // },
   plusIcon: {
     width: 70,
     height: 40,

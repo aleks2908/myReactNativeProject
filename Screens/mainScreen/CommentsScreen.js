@@ -1,9 +1,9 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export const CommentsScreen = ({ navigation }) => {
+export const CommentsScreen = ({ navigation, route }) => {
   return (
     <>
       <View style={styles.header}>
@@ -16,7 +16,14 @@ export const CommentsScreen = ({ navigation }) => {
           color="#212121"
         />
       </View>
-      <View style={styles.container}>{/* <Text>PostsScreen</Text> */}</View>
+      <View style={styles.container}>
+        <View style={styles.photoPlace}>
+          <Image
+            source={{ uri: route.params.item.photo }}
+            style={styles.photo}
+          />
+        </View>
+      </View>
     </>
   );
 };
@@ -24,7 +31,7 @@ export const CommentsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
+    // justifyContent: "flex-end",
     // height: 530,
     paddingHorizontal: 16,
     // justifyContent: "flex-start",
@@ -52,4 +59,19 @@ const styles = StyleSheet.create({
     bottom: 10,
     left: 16,
   },
+  photoPlace: {
+    height: 240,
+    // width: "100%",
+    // backgroundColor: "#F6F6F6",
+    // backgroundColor: "red",
+    borderRadius: 8,
+    overflow: "hidden",
+    // paddingHorizontal: 16,
+    marginTop: 32,
+    marginBottom: 8,
+
+    // flex: 1,
+  },
+
+  photo: { height: "100%", width: "100%" },
 });

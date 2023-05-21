@@ -1,9 +1,11 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export const MapScreen = ({ navigation }) => {
+export const MapScreen = ({ navigation, route }) => {
+  const location = route.params.item;
   return (
     <>
       <View style={styles.header}>
@@ -16,7 +18,29 @@ export const MapScreen = ({ navigation }) => {
           color="#212121"
         />
       </View>
-      <View style={styles.container}>{/* <Text>PostsScreen</Text> */}</View>
+
+      <View style={styles.container}>
+        {/* <Text>PostsScreen</Text> */}
+        <View style={styles.container}>
+          <MapView
+            style={{ flex: 1 }}
+            initialRegion={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+              latitudeDelta: 0.001,
+              longitudeDelta: 0.006,
+            }}
+          >
+            <Marker
+              coordinate={{
+                latitude: location.latitude,
+                longitude: location.longitude,
+              }}
+              title="travel photo"
+            />
+          </MapView>
+        </View>
+      </View>
     </>
   );
 };
@@ -26,7 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     // height: 530,
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
     // justifyContent: "flex-start",
     backgroundColor: "#FFFFFF",
   },

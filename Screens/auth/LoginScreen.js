@@ -14,14 +14,17 @@ import {
 
 // "expo": "~48.0.6",
 
-const initialstate = {
-  email: "",
-  password: "",
-};
+// const initialstate = {
+//   email: "",
+//   password: "",
+// };
 
 export default Login = ({ navigation }) => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
-  const [state, setState] = useState(initialstate);
+  const [email, setEmail] = useState("");
+  // console.log("654: ", email);
+  const [password, setPassword] = useState("");
+  // const [state, setState] = useState(initialstate);
   const [showPassword, setShowPassword] = useState(true);
 
   useEffect(() => {
@@ -40,10 +43,12 @@ export default Login = ({ navigation }) => {
   };
 
   const onsubmit = () => {
-    if (state.email && state.password) {
+    if (email && password) {
       keyboardHide();
-      console.log(state);
-      setState(initialstate);
+      console.log(email, password);
+      // setState(initialstate);
+      setEmail("");
+      setPassword("");
     } else {
       alert("Заповніть поля");
     }
@@ -71,29 +76,25 @@ export default Login = ({ navigation }) => {
                 style={styles.input}
                 placeholder={"Адреса електронної пошти"}
                 placeholderTextColor={"#BDBDBD"}
-                value={state.email}
+                value={email}
                 onFocus={() => {
                   setIsKeyboardShown(true);
                 }}
-                onChangeText={(value) =>
-                  setState((prevstate) => ({ ...prevstate, email: value }))
-                }
+                onChangeText={(value) => setEmail(value)}
               />
               <View>
                 <TextInput
                   style={styles.input}
                   placeholder={"Пароль"}
                   placeholderTextColor={"#BDBDBD"}
-                  value={state.password}
+                  value={password}
                   // {const ttt = () => {secureTextEntry={true}}}
                   secureTextEntry={showPassword}
                   // secureTextEntry={true}
                   onFocus={() => {
                     setIsKeyboardShown(true);
                   }}
-                  onChangeText={(value) =>
-                    setState((prevstate) => ({ ...prevstate, password: value }))
-                  }
+                  onChangeText={(value) => setPassword(value)}
                 />
                 <TouchableOpacity
                   style={styles.showPassWhapper}

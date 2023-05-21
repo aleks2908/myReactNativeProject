@@ -17,13 +17,14 @@ export default function App() {
   // console.log("APP: ", value);
 
   // const routing = useRout(Math.random() > 0.5);
+  // const routing = useRout(0);
   const routing = useRout(1);
 
   const [fontsLoaded] = useFonts({
     "Inter-Medium": require("./assets/fonts/Inter-Medium.ttf"),
-    "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
-    "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
-    "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"), // 700
+    "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"), // 500
+    "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"), //400
   });
 
   // const [isRegistrate, setIsRegistrate] = useState(true);

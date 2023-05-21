@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   TextInput,
   Text,
@@ -10,10 +10,16 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   ScrollView,
+  Image,
 } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+
+import { Camera } from "expo-camera";
+// import * as MediaLibrary from "expo-media-library";
+import * as Location from "expo-location";
 
 const initialstate = {
   name: "",
@@ -22,9 +28,33 @@ const initialstate = {
 
 export const CreatePostsScreen = ({ navigation }) => {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
-  const [state, setState] = useState(initialstate);
+  const [photoDescr, setPhotoDescr] = useState(initialstate);
 
-  // console.log(headerLeft);
+  const [camera, setCamera] = useState(null);
+  const [photo, setPhoto] = useState(null);
+
+  const takePhoto = async () => {
+    const photo = await camera.takePictureAsync();
+
+    setPhoto(photo.uri);
+  };
+
+  const sendPhoto = async () => {
+    keyboardHide();
+
+    const location = await Location.getCurrentPositionAsync();
+    alert(location.coords.latitude);
+
+    navigation.navigate("Публікації", {
+      photo,
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      ...photoDescr,
+    });
+
+    setPhoto(null);
+    setPhotoDescr(initialstate);
+  };
 
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener(
@@ -41,20 +71,7 @@ export const CreatePostsScreen = ({ navigation }) => {
     Keyboard.dismiss();
   };
 
-  const onsubmit = () => {
-    // if (state.email && state.password) {
-    keyboardHide();
-    console.log(state);
-    setState(initialstate);
-    // navigation.navigate("Login", { screen: "PostsScreen" });
-    // navigation.navigate("PostsScreen");
-    // } else {
-    //   alert("Заповніть поля");
-    // }
-  };
-
   return (
-    // <>
     <>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Створити публікацію</Text>
@@ -77,56 +94,91 @@ export const CreatePostsScreen = ({ navigation }) => {
               marginBottom: isKeyboardShown ? 0 : 118, // 135
             }}
           >
-            <View style={styles.photoBack}>
-              <View style={styles.photoBackIconWrapper}>
-                <MaterialIcons name="photo-camera" size={24} color="#BDBDBD" />
-              </View>
+            <View style={styles.photoPlace}>
+              {photo ? (
+                <Image source={{ uri: photo }} style={styles.photo} />
+              ) : (
+                <Camera
+                  style={styles.camera}
+                  type={Camera.Constants.Type.back}
+                  ref={setCamera}
+                >
+                  <TouchableOpacity
+                    style={styles.photoBackIconWrapper}
+                    onPress={takePhoto}
+                  >
+                    <MaterialIcons
+                      name="photo-camera"
+                      size={24}
+                      color="#BDBDBD"
+                    />
+                  </TouchableOpacity>
+                </Camera>
+              )}
             </View>
-            <Text style={styles.addPhotoText}>Завантажте фото</Text>
-
-            {/* <View style={styles.form}> */}
-            {/* <Text style={styles.formTitle}>Увійти</Text> */}
-
-            {/* <MaterialCommunityIcons
-            onPress={() => navigation.navigate("Публікації")}
-            name="arrow-left"
-            size={24}
-            color="#212121"
-            marginLeft={16}
-          /> */}
+            <Text style={styles.addPhotoText}>
+              {photo ? "Редагувати фото" : "Завантажте фото"}
+            </Text>
 
             <TextInput
               style={styles.input}
               placeholder={"Назва..."}
               placeholderTextColor={"#BDBDBD"}
-              value={state.name}
+              value={photoDescr.name}
               onFocus={() => {
                 setIsKeyboardShown(true);
               }}
               onChangeText={(value) =>
-                setState((prevstate) => ({ ...prevstate, name: value }))
+                setPhotoDescr((prevstate) => ({ ...prevstate, name: value }))
               }
             />
             <TextInput
               style={styles.input}
-              placeholder={"Місцевість"}
+              placeholder={"Місцевість..."}
               placeholderTextColor={"#BDBDBD"}
-              value={state.locality}
+              value={photoDescr.locality}
               // secureTextEntry={true}
               onFocus={() => {
                 setIsKeyboardShown(true);
               }}
               onChangeText={(value) =>
-                setState((prevstate) => ({ ...prevstate, locality: value }))
+                setPhotoDescr((prevstate) => ({
+                  ...prevstate,
+                  locality: value,
+                }))
               }
             />
             <TouchableOpacity
+              disabled={!photo}
               activeOpacity={0.8}
-              style={styles.formButton}
-              onPress={onsubmit}
+              // style={styles.formButton}
+              style={{
+                backgroundColor: photo ? "#FF6C00" : "#F6F6F6",
+                ...styles.formButton,
+              }}
+              onPress={sendPhoto}
             >
-              <Text style={styles.buttonTitle}>Опублікувати</Text>
+              <Text
+                style={{
+                  color: photo ? "#FFFFFF" : "#BDBDBD",
+                  ...styles.buttonTitle,
+                }}
+              >
+                Опублікувати
+              </Text>
             </TouchableOpacity>
+
+            {photo && (
+              <View style={styles.deleteIconWrapper}>
+                <AntDesign
+                  name="delete"
+                  size={20}
+                  // color="#212121"
+                  style={styles.deleteIcon}
+                  onPress={() => setPhoto(null)}
+                />
+              </View>
+            )}
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
@@ -165,24 +217,33 @@ const styles = StyleSheet.create({
     bottom: 10,
     left: 16,
   },
-  // formWrapper: {
-  //   // flex: 1,
-  //   // height: 530,
 
-  //   backgroundColor: "yellow",
-  // },
-
-  photoBack: {
+  photoPlace: {
     height: 240,
-    backgroundColor: "#F6F6F6",
+    // width: "100%",
+    // backgroundColor: "#F6F6F6",
+    // backgroundColor: "red",
     borderRadius: 8,
-    paddingHorizontal: 16,
+    overflow: "hidden",
+    // paddingHorizontal: 16,
     marginTop: 32,
     marginBottom: 8,
 
     // flex: 1,
+  },
+
+  photo: { height: "100%", width: "100%" },
+
+  camera: {
+    flex: 1,
+    // width: "100%",
+    // height: "100%",
+    // borderColor: "red",
+    // borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
+    // marginTop: "100%",
+    // alignItems: "center",
   },
   photoBackIconWrapper: {
     // flex: 1,
@@ -204,29 +265,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
   },
 
-  // image: {
-  //   flex: 1,
-  //   resizeMode: "cover",
-  //   justifyContent: "center",
-  // },
-
-  // form: {
-  //   height: 549,
-  //   backgroundColor: "#FFFFFF",
-  //   borderTopLeftRadius: 25,
-  //   borderTopRightRadius: 25,
-  //   paddingHorizontal: 16,
-  // },
-  // formTitle: {
-  //   fontSize: 30,
-  //   lineHeight: 35,
-  //   textAlign: "center",
-  //   letterSpacing: 0.01,
-  //   marginTop: 92,
-  //   marginBottom: 32,
-  //   color: "#212121",
-  //   fontFamily: "Roboto-Medium",
-  // },
   input: {
     // marginHorizontal: 16,
     borderWidth: 1,
@@ -247,7 +285,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // marginHorizontal: 16,
     height: 51,
-    backgroundColor: "#F6F6F6", //"#FF6C00"
+    // backgroundColor: photo ? "#F6F6F6" : "#FF6C00",
     borderRadius: 100,
     marginTop: 16,
     // marginBottom: 16,
@@ -255,7 +293,35 @@ const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: 16,
     lineHeight: 19,
-    color: "#BDBDBD", // FFFFFF
+    // color: "#BDBDBD", // FFFFFF
     fontFamily: "Roboto-Regular",
+  },
+  deleteIconWrapper: {
+    top: 90,
+    alignItems: "center",
+    // backgroundColor: "orange",
+    // justifyContent: "flex-end",
+    // marginBottom: 34,
+  },
+  deleteIcon: {
+    width: 70,
+    height: 40,
+    textAlign: "center",
+    verticalAlign: "middle",
+    borderRadius: 20,
+    color: "#8e8e8f",
+    // paddingHorizontal: 20,
+    // paddingVertical: 5,
+    backgroundColor: "#F6F6F6",
+    // borderRadius: 15,
+  },
+
+  takePhotoContainer: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    borderRadius: 28,
+    borderColor: "#fff",
+    borderWidth: 1,
   },
 });

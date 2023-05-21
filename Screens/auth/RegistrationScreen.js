@@ -20,16 +20,19 @@ import {
 // import { AntDesign } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 
-const initialstate = {
-  login: "",
-  email: "",
-  password: "",
-};
+// const initialstate = {
+//   login: "",
+//   email: "",
+//   password: "",
+// };
 
 export default Register = ({ navigation }) => {
   // console.log("whatToShow7777777777: ", whatToShow);
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
-  const [state, setState] = useState(initialstate);
+  // const [state, setState] = useState(initialstate);
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
 
   useEffect(() => {
@@ -48,20 +51,13 @@ export default Register = ({ navigation }) => {
   };
 
   const onsubmit = () => {
-    if (state.email && state.password) {
+    if (login && email && password) {
       keyboardHide();
-      console.log(state);
-      setState(initialstate);
-
-      // whatToShow(123);
-      // console.log("whatToShow: ", whatToShow);
-
-      // isSignedIn(1);
-      // console.log("isSignedIn: ", isSignedIn);
-      // App(456);
-      // useRout(1);
-      // navigation.navigate("Створити публікацію", { screen: "Публікації" });
-      // navigation.navigate("Публікації");
+      console.log(login, email, password);
+      // setState(initialstate);
+      setLogin("");
+      setEmail("");
+      setPassword("");
     } else {
       alert("Заповніть поля");
     }
@@ -100,44 +96,35 @@ export default Register = ({ navigation }) => {
                 style={styles.input}
                 placeholder={"Логін"}
                 placeholderTextColor={"#BDBDBD"}
-                value={state.login}
+                value={login}
                 onFocus={() => {
                   setIsKeyboardShown(true);
                 }}
-                onChangeText={(value) =>
-                  setState((prevstate) => ({ ...prevstate, login: value }))
-                }
+                onChangeText={(value) => setLogin(value)}
               />
               <TextInput
                 style={styles.input}
                 placeholder={"Адреса електронної пошти"}
                 placeholderTextColor={"#BDBDBD"}
-                value={state.email}
+                value={email}
                 onFocus={() => {
                   setIsKeyboardShown(true);
                 }}
-                onChangeText={(value) =>
-                  setState((prevstate) => ({ ...prevstate, email: value }))
-                }
+                onChangeText={(value) => setEmail(value)}
               />
               <View>
                 <TextInput
                   style={styles.input}
                   placeholder={"Пароль"}
                   placeholderTextColor={"#BDBDBD"}
-                  value={state.password}
+                  value={password}
                   // {const ttt = () => {secureTextEntry={true}}}
                   secureTextEntry={showPassword}
                   // secureTextEntry={true}
                   onFocus={() => {
                     setIsKeyboardShown(true);
                   }}
-                  onChangeText={(value) =>
-                    setState((prevstate) => ({
-                      ...prevstate,
-                      password: value,
-                    }))
-                  }
+                  onChangeText={(value) => setPassword(value)}
                 />
                 <TouchableOpacity
                   style={styles.showPassWhapper}
