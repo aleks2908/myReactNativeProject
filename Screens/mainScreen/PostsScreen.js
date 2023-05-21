@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     // height: 530,
+    paddingTop: 32,
     paddingHorizontal: 16,
     // justifyContent: "flex-start",
     // backgroundColor: "red",

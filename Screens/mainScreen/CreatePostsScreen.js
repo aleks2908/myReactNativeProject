@@ -85,7 +85,10 @@ export const CreatePostsScreen = ({ navigation }) => {
       </View>
       <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
-        style={styles.container}
+        style={{
+          justifyContent: isKeyboardShown ? "flex-end" : "flex-start",
+          ...styles.container,
+        }}
       >
         <TouchableWithoutFeedback onPress={keyboardHide}>
           <View
@@ -189,7 +192,9 @@ export const CreatePostsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
+    // justifyContent: isShowKeyboadr ? "flex-end" : "flex-start";
+    // justifyContent: "flex-end",
+    width: "100%",
     // height: 530,
     paddingHorizontal: 16,
     // justifyContent: "flex-start",
@@ -300,6 +305,7 @@ const styles = StyleSheet.create({
     top: 90,
     alignItems: "center",
     // backgroundColor: "orange",
+    // marginBottom: "auto",
     // justifyContent: "flex-end",
     // marginBottom: 34,
   },
